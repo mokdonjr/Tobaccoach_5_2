@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10"
+    android:background="@color/primary_background_color"
+    >
+
+    <TextView
+        android:id="@+id/text_tobacco_list_title"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="나의 담배 고르기"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_weight="1"
+        />
+
+
+    <ExpandableListView
+        android:id="@+id/tobacco_expendable_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:choiceMode="singleChoice" />
+
+
+    <!--<Button
+        android:id="@+id/submit_my_tobacco_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="SUBMIT"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        />-->
+
+</LinearLayout>

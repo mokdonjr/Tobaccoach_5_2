@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="seungchan.com.tobaccoach_5_2.deviceServiceController.MyDeviceScanActivity">
+
+</android.support.constraint.ConstraintLayout>-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_background_color"
+    >
+
+    <Button
+        android:id="@+id/connect_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/connect_button_states"
+        android:focusableInTouchMode="true"
+        android:onClick="oneButtonConnection"
+        android:textColor="#ffffff"
+        android:enabled="false"
+        />
+
+    <TextView
+        android:id="@+id/my_device_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="my device name"
+        android:gravity="center"
+        android:layout_below="@id/connect_btn"
+        />
+
+    <TextView
+        android:id="@+id/my_device_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="my device address"
+        android:gravity="center"
+        android:layout_below="@id/my_device_name"
+        />
+
+    <!--<TextView
+        android:id="@+id/text_team_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:gravity="center"
+        android:text="@string/team_name"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/text_team_introduction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/text_team_name"
+        android:layout_marginBottom="30dp"
+        android:gravity="center"
+        android:text="@string/team_introduction"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="20dp"
+        android:textStyle="italic" />-->
+
+
+
+
+</RelativeLayout>

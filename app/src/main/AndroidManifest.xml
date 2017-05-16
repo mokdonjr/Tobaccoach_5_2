@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="seungchan.com.tobaccoach_5_2">
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <!-- 데이터베이스 파일(/data/data/databases/) DDMS에서 접근 -->
+    <application
+        android:name=".webService.ApplicationController"
+        android:allowBackup="true"
+        android:icon="@drawable/tobaccoach_launcher_icon_2"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".authenticate.LoadingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".authenticate.DevSettingActivity" />
+        <activity android:name=".deviceServiceController.MyDeviceScanActivity" />
+        <activity
+            android:name=".deviceServiceController.MyDeviceController"
+            android:label="@string/title_activity_my_device_controller" />
+
+        <service
+            android:name=".deviceServiceController.BluetoothLeService"
+            android:enabled="true" />
+
+        <activity android:name=".authenticate.TobaccoListActivity" />
+        <!-- <activity android:name=".LoginActivity"></activity> -->
+        <activity android:name=".authenticate.LoginActivity" />
+        <activity android:name=".authenticate.SignupActivity"/>
+    </application>
+
+</manifest>
