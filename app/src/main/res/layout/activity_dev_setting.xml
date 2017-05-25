@@ -31,22 +31,27 @@
         android:gravity="center"
         android:text="디바이스 연동을 위한 MAC주소, 웹 연동을 위한 IP주소, 연산에 필요한 담배 종류를 입력하시오" />
 
+    <!-- A8:1B:6A:AE:6B:31 -->
+    <!-- 60:64:05:D1:41:D1 -->
+    <!-- 60:64:05:D1:47:BB -->
     <EditText
         android:id="@+id/edit_device_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Input Device Mac Address"
-        android:text="A8:1B:6A:AE:6B:31"
+        android:text="60:64:05:D1:41:D1"
         android:layout_above="@+id/edit_ip_address"
         android:layout_centerHorizontal="true"
         />
 
+    <!-- 52.79.213.24, terminated -->
+    <!-- 52.78.53.137, is Instance2 -->
     <EditText
         android:id="@+id/edit_ip_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Input Server IP Address"
-        android:text="223.194.155.120"
+        android:text="52.78.53.137"
         android:layout_centerInParent="true"
         />
 

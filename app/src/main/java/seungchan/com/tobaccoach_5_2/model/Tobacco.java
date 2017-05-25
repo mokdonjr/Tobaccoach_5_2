@@ -7,9 +7,10 @@ import java.io.Serializable;
  * Tobacco
  */
 
-public class Tobacco implements Serializable {
+public class Tobacco implements Serializable { // implements Parcelable
 
     // Fields
+    private int tobac_id;
     private String tobaccoBrand;
     private String tobaccoName;
     private double tobaccoTar;
@@ -25,6 +26,14 @@ public class Tobacco implements Serializable {
         this.tobaccoTar = tobaccoTar;
         this.tobaccoNicotine = tobaccoNicotine;
         this.tobaccoPrice = tobaccoPrice;
+    }
+
+    public int getTobaccoId(){
+        return tobac_id;
+    }
+
+    public void setTobaccoId(int tobaccoId){
+        this.tobac_id = tobaccoId;
     }
 
     public String getTobaccoBrand() {
@@ -65,5 +74,17 @@ public class Tobacco implements Serializable {
 
     public void setTobaccoPrice(int tobaccoPrice) {
         this.tobaccoPrice = tobaccoPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Tobacco{" +
+                "tobac_id=" + tobac_id +
+                ", tobaccoBrand='" + tobaccoBrand + '\'' +
+                ", tobaccoName='" + tobaccoName + '\'' +
+                ", tobaccoTar=" + tobaccoTar +
+                ", tobaccoNicotine=" + tobaccoNicotine +
+                ", tobaccoPrice=" + tobaccoPrice +
+                '}';
     }
 }

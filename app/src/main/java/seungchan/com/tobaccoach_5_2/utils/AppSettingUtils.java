@@ -11,9 +11,10 @@ public class AppSettingUtils {
     public static final String EXTRAS_DEVICE_ADDRESS = "DEVICE_ADDRESS";
     public static final String EXTRAS_SERVER_IP = "SERVER_IP";
     public static final String EXTRAS_MY_TOBACCO = "MY_TOBACCO";
-    public static final String SERVER_CONTEXT_ROOT = "CapServer";
+    public static final String SERVER_CONTEXT_ROOT = "CapServer_boot_template"; // CapServer_boot_template // CapServer
     public static final String EXTRAS_MY_ID = "MY_ID";
     public static final String EXTRAS_MY_PASSWORD = "MY_PASSWORD";
+    public static final String SERVER_RANKING_PAGE = "userpage/ranking";
 
     private String mIpAddress;
     private String mDeviceAddress;
@@ -36,5 +37,9 @@ public class AppSettingUtils {
 
     public String getWebApplicationServerUrl(String ipAddress){
         return "http://" + ipAddress + ":8080/" + AppSettingUtils.SERVER_CONTEXT_ROOT + "/";
+    }
+
+    public String getWebApplicationServerRankingPageUrl(String mIpAddress){
+        return getWebApplicationServerUrl(mIpAddress) + SERVER_RANKING_PAGE;
     }
 }

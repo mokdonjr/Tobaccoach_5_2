@@ -4,8 +4,10 @@ import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.StringTokenizer;
 
 /**
@@ -16,6 +18,7 @@ public class TimezoneUtils {
     private static String TAG = "TimezoneUtils";
     private static String DS3231_PROTOCOL = "T";
     private static int DATE_TIME_TOKEN_NUM_FROM_HW = 6; // yy, MM, dd, HH, mm, ss
+    private static String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss"; // "yyyy-MM-dd'T'HH:mm:ss.SSS+09:00"
 
     public static String getCurrentDateTime(){
 
@@ -24,17 +27,64 @@ public class TimezoneUtils {
         // 2. Date 타입
         Date date = new Date(now);
         // 3. Formatting
-        SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // format type
+        SimpleDateFormat iso8601Format = new SimpleDateFormat(DATE_TIME_FORMAT); // format type
         String formatDate = iso8601Format.format(date);
 
+        Log.d(TAG, "getCurrentDateTime메서드, 결과 : " + formatDate);
         return formatDate;
     }
 
+    // 현재 시각 HH:MM:SS 만 반환
+    public static String getCurrentTime(){
+
+        String currentDateTime = getCurrentDateTime();
+        String currentTime = currentDateTime.substring(12); // HH:mm:ss 반환
+        Log.d(TAG, "getCurrentTime 결과 : " + currentTime);
+        return currentTime;
+    }
+
+    // 현재로부터 last : yyyy-mm-dd hh:mm:ss 간 시간차이 반환시 HH, MM, SS를 3개의 String으로
+    public static List<String> getElapsedTime(String last){
+        List<String> returnTime = returnTime = new ArrayList<String>();
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat iso8601Format = new SimpleDateFormat(DATE_TIME_FORMAT);
+
+        long beginTime = 0;
+        try {
+            Date beginDateTime = iso8601Format.parse(getCurrentDateTime());
+            Date endDateTime = iso8601Format.parse(last);
+
+            long gap = (beginDateTime.getTime() - endDateTime.getTime()) / 1000; // 초단위
+            Log.d(TAG, "getElapsedTime메서드, gap : " + gap);
+            long hourGap = gap/60/60;
+            Log.d(TAG, "getElapsedTime메서드, hourGap : " + hourGap);
+            long minuteGap = ((long)(gap/60))%60;
+            Log.d(TAG, "getElapsedTime메서드, minuteGap : " + minuteGap);
+            long secondGap = gap % 60;
+            Log.d(TAG, "getElapsedTime메서드, secondGap : " + secondGap);
+
+            if(hourGap > 99){
+                hourGap = (long)99;
+            }
+
+            returnTime.add(String.valueOf(hourGap));
+            returnTime.add(String.valueOf(minuteGap));
+            returnTime.add(String.valueOf(secondGap));
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return returnTime;
+    }
+
     public static Date parseStringToDateClass(String dateTime) {
-        SimpleDateFormat iso8601Format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Log.d(TAG, "parseStringToDateClass메서드, dateTime문자열 : " + dateTime);
+        SimpleDateFormat iso8601Format = new SimpleDateFormat(DATE_TIME_FORMAT);
         Date date = null;
         try {
             date = iso8601Format.parse(dateTime);
+            Log.d(TAG, "parseStringToDateClass메서드, iso8601Format.parse()에 인자로 dateTime이 들어간 후 Date타입으로 변환된 결과 : " + date);
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import seungchan.com.tobaccoach_5_2.model.Record;
 import seungchan.com.tobaccoach_5_2.model.ResultObject;
 import seungchan.com.tobaccoach_5_2.model.User;
@@ -25,4 +26,10 @@ public interface NetworkService {
 
      @POST("android/login")
      Call<ResultObject> loginUser(@Body User user);
+
+     @GET("api/avg/{date}")
+     Call<Long> getAvg(@Path("date") String date);
+
+     @GET("api/tobacco/{username}")
+     Call<Integer> getTobaccoId(@Path("username") String username);
 }

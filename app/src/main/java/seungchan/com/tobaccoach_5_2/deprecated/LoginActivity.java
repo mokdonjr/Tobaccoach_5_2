@@ -14,7 +14,7 @@
 //import java.util.HashMap;
 //import java.util.Map;
 //
-//import seungchan.com.tobaccoach_5_2.authenticate.TobaccoListActivity;
+//import seungchan.com.tobaccoach_5_2.activity.TobaccoListActivity;
 //
 //public class LoginActivity extends AppCompatActivity {
 //    private static String TAG = "LoginActivity";

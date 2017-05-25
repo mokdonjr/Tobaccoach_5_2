@@ -1,4 +1,4 @@
-package seungchan.com.tobaccoach_5_2.deviceServiceController;
+package seungchan.com.tobaccoach_5_2.dao;
 
 import android.content.Context;
 import android.view.LayoutInflater;

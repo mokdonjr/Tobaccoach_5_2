@@ -1,4 +1,4 @@
-package seungchan.com.tobaccoach_5_2.authenticate;
+package seungchan.com.tobaccoach_5_2.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,8 +32,6 @@ public class DevSettingActivity extends AppCompatActivity {
     }
 
     public Intent putIntentToNext(){
-        /* TobaccoListActivity */
-//        Intent intent = new Intent(getApplicationContext(), TobaccoListActivity.class);
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         intent.putExtra(AppSettingUtils.EXTRAS_SERVER_IP, ipAddress);
         intent.putExtra(AppSettingUtils.EXTRAS_DEVICE_ADDRESS, deviceAddress);

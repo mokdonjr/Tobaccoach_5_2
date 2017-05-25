@@ -1,4 +1,4 @@
-package seungchan.com.tobaccoach_5_2.genericAttributeProfile;
+package seungchan.com.tobaccoach_5_2.ble;
 
 import java.util.HashMap;
 

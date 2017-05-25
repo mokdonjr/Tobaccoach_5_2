@@ -47,7 +47,7 @@
 //import java.util.List;
 //
 //import seungchan.com.tobaccoach_5_2.R;
-//import seungchan.com.tobaccoach_5_2.genericAttributeProfile.TobaccoachGattAttributes;
+//import seungchan.com.tobaccoach_5_2.ble.TobaccoachGattAttributes;
 //
 ///**
 // * For a given BLE device, this Activity provides the user interface to connect, display data,

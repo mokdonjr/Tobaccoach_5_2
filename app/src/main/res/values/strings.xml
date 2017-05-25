@@ -54,4 +54,16 @@
     <string name="kakao_app_key">32762528d8d726da58d2e94296215d08</string>
     <string name="kakao_scheme">kakao32762528d8d726da58d2e94296215d08</string>
     <string name="kakaolink_host">kakaolink</string>
+
+    <!-- Fragment Titles -->
+    <string name="title_my_tobacco">Tobacco</string>
+    <string name="title_daily_chart">Coach</string>
+    <string name="title_ranking">Ranking</string>
+    <string name="title_device_setting">Device</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- CoachFragment -->
+
 </resources>

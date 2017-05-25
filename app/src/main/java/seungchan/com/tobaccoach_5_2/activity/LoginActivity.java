@@ -1,12 +1,17 @@
-package seungchan.com.tobaccoach_5_2.authenticate;
+package seungchan.com.tobaccoach_5_2.activity;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +22,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import seungchan.com.tobaccoach_5_2.R;
-import seungchan.com.tobaccoach_5_2.deviceServiceController.MyDeviceScanActivity;
 import seungchan.com.tobaccoach_5_2.model.ResultObject;
 import seungchan.com.tobaccoach_5_2.model.User;
 import seungchan.com.tobaccoach_5_2.utils.AppSettingUtils;
@@ -28,10 +32,10 @@ public class LoginActivity extends AppCompatActivity {
     private static String TAG = "LoginActivity";
 
     private AppSettingUtils mAppSettingUtils;
-    private boolean result_flag = false;
     private NetworkService networkService;
 
     // ui
+    @BindView(R.id.tobacco_logo_login_activity) ImageView mLogoView;
     @BindView(R.id.login_result) TextView mLoginResult;
     @BindView(R.id.login_button) Button mLoginButton;
     @BindView(R.id.sign_up_btn) Button mSignupButton;
@@ -60,6 +64,8 @@ public class LoginActivity extends AppCompatActivity {
             application.buildNetworkService(mAppSettingUtils.getWebApplicationServerUrl(ipAddress));  //다음의 url로 네트워크서비스 준비.
             networkService= ApplicationController.getInstance().getNetworkService();
         }
+
+        loadingViewer();
     }
 
     public void getIntentFromPrevious(){
@@ -69,8 +75,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public Intent putIntentToNext(){ // MyDeviceScanActivity
-        /* MyDeviceScanActivity */
-//        Intent intent = new Intent(getApplicationContext(), TobaccoListActivity.class);
         Intent intent = new Intent(getApplicationContext(), MyDeviceScanActivity.class);
         intent.putExtra(AppSettingUtils.EXTRAS_DEVICE_ADDRESS, deviceAddress);
         intent.putExtra(AppSettingUtils.EXTRAS_SERVER_IP, ipAddress);
@@ -85,14 +89,35 @@ public class LoginActivity extends AppCompatActivity {
         return intent;
     }
 
+    public void loadingViewer(){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                /*
+                    애니메이션
+                 */
+                Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.logo_slide_down);
+
+                mLogoView.startAnimation(animSlide);
+
+                mLogoView.setVisibility(View.VISIBLE);
+
+            }
+        }, 1);
+    }
+
     @OnClick(R.id.login_button) void onClickLoginButton(){
         inputId = mInputId.getText().toString();
         inputPassword = mInputPassword.getText().toString();
 
+        // 1. user 객체 (id와 password)
         User user = new User();
         user.setNick(inputId);
         user.setPassword(inputPassword);
 
+        // 2. user객체와 함께 login 요청
         Call<ResultObject> thumbnailCall = networkService.loginUser(user);
         thumbnailCall.enqueue(new Callback<ResultObject>() {
             @Override
@@ -102,21 +127,17 @@ public class LoginActivity extends AppCompatActivity {
                     mInputId.setText("");
                     mInputPassword.setText("");
                     if(response.body().getResult().equals("success")){
-                        result_flag = true;
-
-                        /*
-                            여기에 Intent intent = putIntentToNext(); startActivity(intent);
-                            해야 한번에
-                         */
+                        Toast.makeText(getApplicationContext(), "Welcome " + inputId, Toast.LENGTH_SHORT).show();
                         Intent intent = putIntentToNext();
                         startActivity(intent);
                     } else {
-                        //Toast.makeText(this, "invalid Username and Password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "invalid Username and Password", Toast.LENGTH_SHORT).show();
                         mLoginResult.setText("Invalid Username and Password");
                     }
 
                 } else {
                     int statusCode= response.code();
+                    Toast.makeText(getApplicationContext(), String.valueOf(statusCode), Toast.LENGTH_LONG ).show();
                     Log.i(TAG, "응답코드 : " + statusCode);
                 }
             }
@@ -124,14 +145,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResultObject> call, Throwable t) {
                 Log.i(TAG, "서버 onFailure 에러내용 : " + t.getMessage());
+                Toast.makeText(getApplicationContext(), "onFailure메서드 : " + t.getMessage(), Toast.LENGTH_LONG ).show();
             }
         });
-        if(result_flag == true){
-//            Intent intent = new Intent(this, RecordInsertActivity.class);
-//            intent.putExtra("username",inputId);
-//            startActivity(intent);
-
-        }
     }
 
     @OnClick(R.id.sign_up_btn) void onClickSignupButton(){

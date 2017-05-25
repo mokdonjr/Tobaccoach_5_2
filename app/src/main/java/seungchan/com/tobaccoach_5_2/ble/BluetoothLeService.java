@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package seungchan.com.tobaccoach_5_2.deviceServiceController;
+package seungchan.com.tobaccoach_5_2.ble;
 
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
@@ -34,8 +34,6 @@ import android.util.Log;
 
 import java.util.List;
 import java.util.UUID;
-
-import seungchan.com.tobaccoach_5_2.genericAttributeProfile.TobaccoachGattAttributes;
 
 
 /**
@@ -133,8 +131,8 @@ public class BluetoothLeService extends Service {
             intent.putExtra(EXTRA_DATA, characteristic.getStringValue(0));
             Log.d("BluetoothLeService  00", characteristic.getStringValue(0));
             Log.d("BluetoothLeService  10", characteristic.getStringValue(1));
-            Log.d("BluetoothLeService  20", characteristic.getStringValue(2));
-            Log.d("BluetoothLeService  30", characteristic.getStringValue(3));
+//            Log.d("BluetoothLeService  20", characteristic.getStringValue(2));
+//            Log.d("BluetoothLeService  30", characteristic.getStringValue(3));
         } else {
 
             intent.putExtra(EXTRA_DATA, characteristic.getStringValue(0));
@@ -147,7 +145,7 @@ public class BluetoothLeService extends Service {
     }
 
     public class LocalBinder extends Binder {
-        BluetoothLeService getService() {
+        public BluetoothLeService getService() {
             return BluetoothLeService.this;
         }
     }

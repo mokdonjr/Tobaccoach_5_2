@@ -1,0 +1,182 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/main_tobaccoach_title"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/tobaccoach_title"
+            />
+        <!-- Connection State and Message from HW -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/main_tobaccoach_title"
+            android:id="@+id/linearLayout">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SYNCHRONIZE TIME"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:gravity="center"
+                />
+
+            <!-- Time sync between HW and Android -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <!--<Button
+                    android:id="@+id/time_sync_button"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/time_sync_button_state"
+                    android:focusableInTouchMode="true"
+                    android:layout_marginRight="30dp"
+                    />-->
+                <TextView
+                    android:id="@+id/time_sync_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No Sync"
+                    android:textSize="15sp"
+                    android:gravity="center"
+                    />
+
+            </LinearLayout>
+
+            <!--<TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CONNECTION STATE"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:gravity="center"
+                />
+            <TextView
+                android:id="@+id/connection_state_hw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Disconnected"
+                android:textSize="15sp"
+                android:gravity="center"
+                />-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MESSAGE FROM HW"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:gravity="center"
+                />
+            <TextView
+                android:id="@+id/message_from_hw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No Data"
+                android:textSize="15sp"
+                android:gravity="center"
+                />
+            <!--<TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="WEB REQUEST RESULT"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:gravity="center"
+                />
+            <TextView
+                android:id="@+id/result_from_web"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textSize="15sp"
+                android:gravity="center"
+                />-->
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/linearLayout"
+            android:layout_above="@+id/text_main_team_introduction"
+            android:layout_centerHorizontal="true"
+            android:weightSum="6"
+            android:layout_marginBottom="15dp"
+            >
+            <ListView
+                android:id="@+id/listview_db_log"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:weightSum="2"
+                >
+                <Button
+                    android:id="@+id/all_log_data_delete_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="DELETE ALL"
+                    android:layout_weight="1"/>
+                <Button
+                    android:id="@+id/reset_sample_log_data_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="RESET SAMPLE"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/text_main_team_introduction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/text_main_team_name"
+            android:gravity="center"
+            android:text="@string/team_introduction"
+            android:textStyle="italic"
+            android:textSize="15sp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:id="@+id/text_main_team_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:text="@string/team_name"
+            android:layout_marginBottom="15dp"
+            android:textSize="10sp" />
+
+
+
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -92,6 +92,7 @@ public class TobaccoDBHelper extends SQLiteOpenHelper {
 
            for(int i=0; iteratorTobaccoSet.hasNext(); i++) {
                Tobacco temp = iteratorTobaccoSet.next();
+//               int tobaccoId = temp.getTobaccoId();
                String tobaccoBrand = temp.getTobaccoBrand();
                String tobaccoName = temp.getTobaccoName();
                double tobaccoNicotine = temp.getTobaccoNicotine();
@@ -99,6 +100,7 @@ public class TobaccoDBHelper extends SQLiteOpenHelper {
                int tobaccoPrice = temp.getTobaccoPrice();
 
                ContentValues tobaccoRecord = new ContentValues();
+//               tobaccoRecord.put(DBUtils.TOBACCO_IDX, tobaccoId);
                tobaccoRecord.put(DBUtils.TOBACCO_COL_BRAND, tobaccoBrand);
                tobaccoRecord.put(DBUtils.TOBACCO_COL_NAME, tobaccoName);
                tobaccoRecord.put(DBUtils.TOBACCO_COL_TAR, tobaccoTar);
@@ -155,7 +157,7 @@ public class TobaccoDBHelper extends SQLiteOpenHelper {
         return myTobacco;
     }
 
-    // 전체 데이터 조회
+    // 전체 담배 데이터 조회
     public List<Tobacco> selectAllTobaccoData() {
         db = getReadableDatabase();
         Log.i(TAG, "selectAllTobaccoData 메서드");
@@ -213,6 +215,28 @@ public class TobaccoDBHelper extends SQLiteOpenHelper {
             } while (results.moveToNext());
         }
         return tobaccoNameByBrandNameList;
+    }
+
+    // 담배id로 담배 가격 얻기
+    public Tobacco selectTobaccoById(int tobaccoId){
+        db = getReadableDatabase();
+        Log.i(TAG, "selectTobaccoById 메서드");
+        Tobacco tobaccoById = new Tobacco();
+        String sql = "select * from " + DBUtils.TOBACCO_TABLE_NAME + " where " + DBUtils.TOBACCO_IDX + " = " + tobaccoId + ";";
+        Cursor results = db.rawQuery(sql, null);
+
+        if(results.moveToFirst()){
+            do{
+                int col = 1; // 원래 0이어야되는데 brand가 id로, name이 brand로 출력되더군..
+                tobaccoById.setTobaccoBrand(results.getString(col++));
+                tobaccoById.setTobaccoName(results.getString(col++));
+                tobaccoById.setTobaccoTar(results.getDouble(col++));
+                tobaccoById.setTobaccoNicotine(results.getDouble(col++));
+                tobaccoById.setTobaccoPrice(results.getInt(col++));
+            }while(results.moveToNext());
+        }
+
+        return tobaccoById;
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -294,26 +318,26 @@ public class TobaccoDBHelper extends SQLiteOpenHelper {
         return finalAmountByDay;
     }
 
-    public int getAverageLogAmount() {
-        Log.d(TAG, "getAverageLogAmount 메서드");
+//    public int getAverageLogAmountTillDay(String date){
+//        Log.d(TAG, "getAverageLogAmountTilDay 메서드");
+//
+//        int finalAverageLogAmount = 0;
+//        List<String> mDistinctDateTimeLogDataList = new ArrayList<String>();
+//        mDistinctDateTimeLogDataList = selectDistinctDateTimeLogDataTillDay(date);
+//        for(int i=0; i<mDistinctDateTimeLogDataList.size(); i++){
+//            finalAverageLogAmount += getAmountByDay(mDistinctDateTimeLogDataList.get(i)); // 2. 이용한 날짜들에 대한 로그 데이터 개수들을 getAmountByDay(date)로 얻는다.
+//        }
+//        int tillPeriod = getTillPeriod();
+//        if(tillPeriod > 0){
+//            finalAverageLogAmount /= getTillPeriod(); // 3. 총 합을 getAllPeriod()로 나눈다
+//            return finalAverageLogAmount;
+//        }
+//        else{ // getTillPeriod() == 0
+//            return 0; // 서비스 이용 기간이 없음 (0일)
+//        }
+//    }
 
-        int finalAverageLogAmount = 0;
-        List<String> mDistinctDateTimeLogDataList = new ArrayList<String>();
-        mDistinctDateTimeLogDataList = selectDistinctDateTimeLogData(); // 1. selectDistinctDateTimeLogData()로 서비스 이용한 날짜들을 얻는다(time은 없이)
-        for(int i=0; i<mDistinctDateTimeLogDataList.size(); i++){
-            finalAverageLogAmount += getAmountByDay(mDistinctDateTimeLogDataList.get(i)); // 2. 이용한 날짜들에 대한 로그 데이터 개수들을 getAmountByDay(date)로 얻는다.
-        }
 
-        int allPeriod = getAllPeriod();
-        if(allPeriod > 0){
-            finalAverageLogAmount /= getAllPeriod(); // 3. 총 합을 getAllPeriod()로 나눈다
-            return finalAverageLogAmount;
-        }
-        else{ // getAllPeriod() == 0
-            Log.d(TAG, "getAverageLogAmount() 메서드, 총합을 나눌 getAllPeriod() 값 == 0 (divide zero 에러 방지, averageAmount = 0 으로 리턴하자.)");
-            return 0; // 서비스 이용 기간이 없음 (0일)
-        }
-    }
 
     public int getAllPeriod(){ // 서비스 이용한 날짜 일 수 - averageAmount 구할때 이용
         SQLiteDatabase db = getReadableDatabase();
@@ -348,7 +372,7 @@ public class TobaccoDBHelper extends SQLiteOpenHelper {
     }
 
     // 날짜별 로그 데이터 조회 (인자에 selectDistinctDateTimeLogData메서드 이용해 해당 날짜에 대해 로그데이터들 리턴)
-    public List<String> selectDateTimeLogDataByDay(String date){
+    public List<String> selectDateTimeLogDataByDay(String date){ // yyyy-MM-dd HH:mm:ss
         SQLiteDatabase db = getReadableDatabase();
         Log.d(TAG, "selectDateTimeLogDataByDay 메서드");
         List<String> dateTimeLogDataByDayList = new ArrayList<String>();
@@ -363,6 +387,24 @@ public class TobaccoDBHelper extends SQLiteOpenHelper {
             } while(results.moveToNext());
         }
         return dateTimeLogDataByDayList;
+    }
+
+    // 날짜별 로그 데이터 Time 만 조회
+    public List<String> selectTimeLogDataByDay(String date){ // yyyy-MM-dd HH:mm:ss
+        SQLiteDatabase db = getReadableDatabase();
+        Log.d(TAG, "selectTimeLogDataByDay 메서드");
+        List<String> timeLogDataByDayList = new ArrayList<String>();
+        String sql = "select substr(" + DBUtils.LOG_COL_DATETIME + ", 12, 19) from " + DBUtils.LOG_TABLE_NAME + " where " + DBUtils.LOG_COL_DATETIME  + " like '%" + date + "%';";
+        Cursor results = db.rawQuery(sql, null);
+
+        if(results.moveToFirst()){
+            do{
+                int col = 0;
+                String timeLogDataByDay = new String(results.getString(col));
+                timeLogDataByDayList.add(timeLogDataByDay);
+            } while(results.moveToNext());
+        }
+        return timeLogDataByDayList;
     }
 
     public List<String> selectAllDateTimeLogData(){
@@ -421,6 +463,40 @@ public class TobaccoDBHelper extends SQLiteOpenHelper {
         String sqlStatement = "select * from " + DBUtils.LOG_TABLE_NAME + ";";
         Cursor result = db.rawQuery(sqlStatement, null);
         return result.getCount();
+    }
+
+    // 가장 최신의 Log DateTime을 반환
+//    public String getLastLog(){
+//        db = getReadableDatabase();
+//        String lastLog = null;
+//        String sqlStatement = "select " + DBUtils.LOG_COL_DATETIME + " from " + DBUtils.LOG_TABLE_NAME + " where " + DBUtils.LOG_IDX + " = " + (getAllLogTableRowNum()-1) + ";";
+//
+//        Cursor results = db.rawQuery(sqlStatement, null);
+//        if (results.moveToFirst()) {
+//            do {
+//                int col = 1; // 0이 index였음
+//                lastLog = new String(results.getString(0));
+//            } while (results.moveToNext());
+//        }
+//
+//        Log.d(TAG, "getLastLog메서드 결과 : " + lastLog);
+//        return lastLog;
+//    }
+    public String getLastLog(){ // yyyy-mm-dd hh:mm:ss 일때, select max(datetime) from tableName; 가능
+        db = getReadableDatabase();
+        String lastLog = null;
+        String sqlStatement = "select max(" + DBUtils.LOG_COL_DATETIME + ") from " + DBUtils.LOG_TABLE_NAME + ";";
+
+        Cursor results = db.rawQuery(sqlStatement, null);
+        if (results.moveToFirst()) {
+            do {
+                int col = 1; // 0이 index였음
+                lastLog = new String(results.getString(0));
+            } while (results.moveToNext());
+        }
+
+        Log.d(TAG, "getLastLog메서드 결과 : " + lastLog);
+        return lastLog;
     }
 
     public void deleteAllLogData() {

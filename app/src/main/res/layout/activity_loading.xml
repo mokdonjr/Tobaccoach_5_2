@@ -4,24 +4,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_background_color"
     >
 
-    <ImageView
-        android:id="@+id/imageView3"
+    <!--<ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/hippie_smoking2"
-        android:scaleType="centerInside" />
+        android:scaleType="centerInside" />-->
 
-    <ImageView
-        android:id="@+id/imageView_logo"
+    <!--<ImageView
+        android:id="@+id/tobaccoach_logo_level_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/tobaccoach_logo_level_1"
+        android:layout_centerHorizontal="true"
         android:scaleX="0.3"
         android:scaleY="0.3"
-        android:layout_centerHorizontal="true"
-            />
+        android:visibility="visible"
+        app:srcCompat="@drawable/tobaccoach_logo_level_1"
+        android:layout_marginTop="200dp"
+        />-->
+    <ImageView
+        android:id="@+id/tobaccoach_logo_level_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scaleX="0.4"
+        android:scaleY="0.4"
+        app:srcCompat="@drawable/tobaccoach_logo_level_1"
+        android:layout_marginBottom="50dp"
+        />
 
 </RelativeLayout>

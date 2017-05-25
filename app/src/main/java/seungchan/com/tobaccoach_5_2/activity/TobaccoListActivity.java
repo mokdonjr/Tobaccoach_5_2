@@ -1,4 +1,4 @@
-package seungchan.com.tobaccoach_5_2.authenticate;
+package seungchan.com.tobaccoach_5_2.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import seungchan.com.tobaccoach_5_2.deviceServiceController.MyDeviceScanActivity;
+import seungchan.com.tobaccoach_5_2.dao.TobaccoDaoService;
 import seungchan.com.tobaccoach_5_2.model.User;
 import seungchan.com.tobaccoach_5_2.utils.AppSettingUtils;
 import seungchan.com.tobaccoach_5_2.R;
@@ -34,7 +34,7 @@ public class TobaccoListActivity extends AppCompatActivity {
     @BindView(R.id.tobacco_expendable_list_view) ExpandableListView mTobaccoList;
     private List<String> tobaccoBrandNameList; // Parent 데이터
     private List<List<String>> tobaccoNameByAllBrandNameList; // 메모리로 가져옴
-    private TobaccoDBHelper mTobaccoDBHelper; // db에 저장된 tobacco db 데이터 공급처
+    private TobaccoDaoService mTobaccoDaoService;
 
     private AppSettingUtils mAppSettingUtils;
     private NetworkService networkService;
@@ -58,8 +58,8 @@ public class TobaccoListActivity extends AppCompatActivity {
         getIntentFromPrevious();
 
         mTobaccoList.setOnChildClickListener(mTobaccoListClickListener);
-        mTobaccoDBHelper = TobaccoDBHelper.getInstance(getApplicationContext()); // 싱글톤
-        displayTobaccoFromDB(mTobaccoDBHelper);
+        mTobaccoDaoService = TobaccoDaoService.getInstance(getApplicationContext()); // 싱글톤
+        displayTobaccoFromDB(mTobaccoDaoService);
 
         mAppSettingUtils = AppSettingUtils.getInstance();
         if(mAppSettingUtils != null){
@@ -132,38 +132,46 @@ public class TobaccoListActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.isSuccessful()) {
-//                    mInputSignupId.setText("");
-//                    mInputSignupPassword.setText("");
                     Log.i(TAG, "응답코드 : " + "등록되었습니다.");
+                    /*
+                        가입 성공
+                     */
+                    Toast.makeText(getApplicationContext(), "서버로부터 허가 받았습니다.", Toast.LENGTH_LONG ).show();
                 } else {
                     int statusCode = response.code();
                     Log.i(TAG, "응답코드 : " + statusCode);
+                    /*
+                        가입실패 내용
+                        (아이디 중복)
+                     */
+                    Toast.makeText(getApplicationContext(), String.valueOf(statusCode), Toast.LENGTH_LONG ).show();
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.i(TAG, "서버 onFailure 에러내용 : " + t.getMessage());
+                Toast.makeText(getApplicationContext(), "onFailure메서드 : " + t.getMessage(), Toast.LENGTH_LONG ).show();
             }
         });
     }
 
     // display Tobaccos on ExpandableListView
-    private void displayTobaccoFromDB(TobaccoDBHelper tobaccoDBHelper) {
-        if(tobaccoDBHelper == null){
-            Log.d(TAG, "displayTobaccoFromDB 메서드, TobaccoDBHelper == null !!");
+    private void displayTobaccoFromDB(TobaccoDaoService tobaccoDaoService) {
+        if(tobaccoDaoService == null){
+            Log.d(TAG, "displayTobaccoFromDB 메서드, TobaccoDaoService == null !!");
         }
 
         // 1. 데이터 준비
         tobaccoBrandNameList = new ArrayList<String>(); // Parent Data 준비
-        tobaccoBrandNameList = tobaccoDBHelper.selectDistinctTobaccoBrandName();
-        Log.d(TAG, "displayTobaccoFromDB - tobaccoDBHelper.selectDistinctTobaccoBrandName() 수행");
+        tobaccoBrandNameList = tobaccoDaoService.selectDistinctTobaccoBrandName();
+        Log.d(TAG, "displayTobaccoFromDB - tobaccoDaoService.selectDistinctTobaccoBrandName() 수행");
 
         tobaccoNameByAllBrandNameList = new ArrayList<List<String>>(); // Child Data 준비
         for(int i=0; i<tobaccoBrandNameList.size(); i++){
 //        for(String tobaccoBrandName : tobaccoBrandNameList){
             String tobaccoBrandName = tobaccoBrandNameList.get(i);
-            List<String> tobaccoNameByBrandNameList = tobaccoDBHelper.selectTobaccoNameByBrandName(tobaccoBrandName);
+            List<String> tobaccoNameByBrandNameList = tobaccoDaoService.selectTobaccoNameByBrandName(tobaccoBrandName);
             Log.d(TAG, "displayTobaccoFromDB - tobaccoDBHelper.selectTobaccoNameByBrandName(" + tobaccoBrandName + ") 수행");
             tobaccoNameByAllBrandNameList.add(tobaccoNameByBrandNameList);
         }
@@ -188,8 +196,8 @@ public class TobaccoListActivity extends AppCompatActivity {
 
         // 3. 어댑터 설정
         SimpleExpandableListAdapter tobaccoBrandNameList_With_TobaccoNameByBrandNameList_Adapter = new SimpleExpandableListAdapter(
-                this, tobaccoBrandNameListData, android.R.layout.simple_expandable_list_item_1, new String[]{LIST_TOBACCO_BRAND}, new int[]{android.R.id.text1},
-                tobaccoNameByBrandNameListData, android.R.layout.simple_expandable_list_item_2, new String[] {LIST_TOBACCO_NAME}, new int[]{android.R.id.text2}
+                this, tobaccoBrandNameListData, R.layout.tobacco_brand_list_view_item, new String[]{LIST_TOBACCO_BRAND}, new int[]{R.id.text_tobacco_brand_item},
+                tobaccoNameByBrandNameListData, R.layout.tobacco_name_list_view_item, new String[] {LIST_TOBACCO_NAME}, new int[]{R.id.text_tobacco_name_item}
         );
 
         // 4. 어댑터에 데이터 공급

@@ -5,6 +5,8 @@ import android.app.Application;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Locale;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -32,7 +34,7 @@ public class ApplicationController extends Application {
         synchronized (ApplicationController.class) {
             if(networkService == null) {
                 baseUrl= url;
-                Gson gson= new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
+                Gson gson= new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").create();
                 GsonConverterFactory factory= GsonConverterFactory.create(gson);
                 //서버로부터 json 형식으로 데이터를 받아오고 이를 파싱해서 받아오기 위해 사용
 

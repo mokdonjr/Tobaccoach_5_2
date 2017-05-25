@@ -1,9 +1,8 @@
-package seungchan.com.tobaccoach_5_2.authenticate;
+package seungchan.com.tobaccoach_5_2.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -12,11 +11,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import seungchan.com.tobaccoach_5_2.R;
-import seungchan.com.tobaccoach_5_2.model.User;
 import seungchan.com.tobaccoach_5_2.utils.AppSettingUtils;
 import seungchan.com.tobaccoach_5_2.webService.ApplicationController;
 import seungchan.com.tobaccoach_5_2.webService.NetworkService;
@@ -52,13 +47,6 @@ public class SignupActivity extends AppCompatActivity {
         Spinner s = (Spinner) findViewById(R.id.select_region_spinner);    //
         s.setAdapter(adapter);
 
-        mAppSettingUtils = AppSettingUtils.getInstance();
-        if(mAppSettingUtils != null){
-            //ip , port 연결
-            ApplicationController application= ApplicationController.getInstance();  //앱이 처음 실행될 때 인스턴스 생성.
-            application.buildNetworkService(mAppSettingUtils.getWebApplicationServerUrl(ipAddress));  //다음의 url로 네트워크서비스 준비.
-            networkService= ApplicationController.getInstance().getNetworkService();
-        }
     }
 
     public void getIntentFromPrevious(){

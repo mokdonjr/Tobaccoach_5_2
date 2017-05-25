@@ -1,0 +1,55 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2"
+        android:orientation="vertical">
+
+        <!-- Daily Chart -->
+        <com.github.mikephil.charting.charts.CombinedChart
+            android:id="@+id/daily_chart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <!-- Timely Chart -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/text_you_can_see_timely_chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="날짜를 터치하면 해당 날짜의 시간별 차트를 볼 수 있습니다"
+                android:gravity="center"
+                />
+
+            <!--<com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/timely_chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                />-->
+            <FrameLayout
+                android:id="@+id/content_daily_add_timely"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            </FrameLayout>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+
+</FrameLayout>

@@ -60,7 +60,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:ems="10"
-            android:inputType="textPassword|number"
+            android:inputType="textPassword"
             android:hint="Enter Password"
             android:text="1234"
             />

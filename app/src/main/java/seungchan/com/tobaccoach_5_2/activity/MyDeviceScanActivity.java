@@ -1,4 +1,4 @@
-package seungchan.com.tobaccoach_5_2.deviceServiceController;
+package seungchan.com.tobaccoach_5_2.activity;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -17,16 +17,16 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import seungchan.com.tobaccoach_5_2.model.Tobacco;
 import seungchan.com.tobaccoach_5_2.utils.AppSettingUtils;
 import seungchan.com.tobaccoach_5_2.R;
-import seungchan.com.tobaccoach_5_2.model.Tobacco;
 
 public class MyDeviceScanActivity extends AppCompatActivity {
     private static String TAG = "MyDeviceScanActivity";
 
     private String ipAddress;
     private String deviceAddress; // 고객의 스마트 담배케이스 Mac 주소
-//    private Tobacco myTobacco; // 고객의 담배 종류
+//    private Tobacco mTobacco; // 고객의 담배 종류
     private String userId;
 
     private BluetoothAdapter mBluetoothAdapter;
@@ -73,14 +73,16 @@ public class MyDeviceScanActivity extends AppCompatActivity {
         ipAddress = inputAddressIntent.getStringExtra(AppSettingUtils.EXTRAS_SERVER_IP);
         deviceAddress = inputAddressIntent.getStringExtra(AppSettingUtils.EXTRAS_DEVICE_ADDRESS);
         userId = inputAddressIntent.getStringExtra(AppSettingUtils.EXTRAS_MY_ID);
+//        mTobacco = inputAddressIntent.getParcelableExtra(AppSettingUtils.EXTRAS_MY_TOBACCO);
     }
 
     public Intent putIntentToNext(){
-        final Intent intent = new Intent(getApplicationContext(), MyDeviceController.class);
+        final Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.putExtra(AppSettingUtils.EXTRAS_DEVICE_NAME, scannedDevice.getName());
         intent.putExtra(AppSettingUtils.EXTRAS_DEVICE_ADDRESS, scannedDevice.getAddress());
         intent.putExtra(AppSettingUtils.EXTRAS_SERVER_IP, ipAddress);
         intent.putExtra(AppSettingUtils.EXTRAS_MY_ID, userId);
+//        intent.putExtra(AppSettingUtils.EXTRAS_MY_TOBACCO, mTobacco);
         return intent;
     }
 

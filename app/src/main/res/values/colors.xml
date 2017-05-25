@@ -8,6 +8,28 @@
     <color name="primary_background_color">#e8f8e2</color>
     <color name="primary_title_color">#67757a</color>
 
-    <color name="color_main_progress_today_average_amount">#7dd0b6</color>
+    <color name="color_main_progress_today_average_amount">#9c82cc</color>
     <color name="color_background_progress_today_average_amount">#bdc3c7</color>
+
+    <!-- fabs color -->
+    <color name="floating_action_button_color">#b8e77e</color>
+    <color name="color_fab">#889d9b</color>
+    <color name="color_fab_kakao">#aeccc1</color>
+    <color name="color_fab_time_sync">#aeccc1</color>
+    <color name="color_device_setting">#aeccc1</color>
+
+    <!--Other general colors-->
+    <color name="white">#FFFFFF</color>
+    <color name="red">#e7185a</color>
+    <color name="blue">#009de0</color>
+    <color name="black">#000000</color>
+    <color name="off_white">#f1f5f7</color>
+    <color name="blue_selector">#00aeea</color>
+    <color name="red_negative_progress">#ff3333</color>
+
+    <color name="bg_color">#e3ebee</color>
+    <color name="color_grey">#2a2d30</color>
+
+    <color name="background">#E0E0E0</color>
+    <color name="grey">#757575</color>
 </resources>

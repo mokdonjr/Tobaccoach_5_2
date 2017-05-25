@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="seungchan.com.tobaccoach_5_2.deviceServiceController.MyDeviceScanActivity">
+    tools:context="seungchan.com.tobaccoach_5_2.activity.MyDeviceScanActivity">
 
 </android.support.constraint.ConstraintLayout>-->
 <RelativeLayout

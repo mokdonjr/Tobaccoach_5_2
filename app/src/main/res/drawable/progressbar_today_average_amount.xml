@@ -4,7 +4,7 @@
         <!-- Our grey ring, 1st element of our list -->
         <shape android:shape="ring"
             android:useLevel="false"
-            android:innerRadius="60dp"
+            android:innerRadius="135dp"
             android:thicknessRatio="30"> <!-- Higher values, thinner line -->
             <solid android:color="@color/color_background_progress_today_average_amount"/>
         </shape>
@@ -14,7 +14,7 @@
         <!-- Our red ring, 2nd element of our list -->
         <shape android:shape="ring"
             android:useLevel="true"
-            android:innerRadius="60dp"
+            android:innerRadius="135dp"
             android:thicknessRatio="30">
             <solid android:color="@color/color_main_progress_today_average_amount"/>
         </shape>

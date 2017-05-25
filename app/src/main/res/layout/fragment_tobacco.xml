@@ -1,0 +1,87 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <FrameLayout
+            android:id="@+id/content_timer_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            >
+
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6"
+            >
+
+            <ImageView
+                android:id="@+id/tobacco_today_and_nico_background"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:layout_centerInParent="true"
+                android:src="@drawable/tobaccoach_today_and_nico"
+                android:visibility="gone"/>
+
+            <ProgressBar
+                android:id="@+id/today_average_amount_progressbar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:max="100"
+                android:progress="0"
+                android:layout_centerInParent="true"
+                android:progressDrawable="@drawable/progressbar_today_average_amount"
+                android:rotation="-90" />
+
+            <TextView
+                android:id="@+id/today_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:text="0"
+                android:textSize="50sp"
+                />
+            <TextView
+                android:id="@+id/average_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_toRightOf="@id/today_amount"
+                android:layout_alignBaseline="@id/today_amount"
+                android:text="/0"
+                android:textSize="20sp" />
+
+
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:id="@+id/content_coach_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            >
+
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
