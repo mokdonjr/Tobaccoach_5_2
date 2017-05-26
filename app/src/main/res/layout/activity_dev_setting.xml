@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Input Device Mac Address"
-        android:text="60:64:05:D1:41:D1"
+        android:text="60:64:05:D1:47:BB"
         android:layout_above="@+id/edit_ip_address"
         android:layout_centerHorizontal="true"
         />

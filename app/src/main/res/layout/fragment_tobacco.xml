@@ -26,16 +26,25 @@
             android:layout_weight="6"
             >
 
+            <FrameLayout
+                android:id="@+id/content_nicotine_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                >
+
+
+            </FrameLayout>
+
             <ImageView
                 android:id="@+id/tobacco_today_and_nico_background"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:scaleX="0.8"
-                android:scaleY="0.8"
+                android:scaleX="0.6"
+                android:scaleY="0.6"
                 android:layout_centerInParent="true"
-                android:src="@drawable/tobaccoach_today_and_nico"
-                android:visibility="gone"/>
+                android:src="@drawable/tobaccoach_today_and_nico"/>
 
             <ProgressBar
                 android:id="@+id/today_average_amount_progressbar"

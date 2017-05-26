@@ -34,11 +34,12 @@ public class CoachFragment extends Fragment {
     private static String TAG = "CoachFragment";
 
 //    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM1 = "ipAddress";
-    private String ipAddress;
-    private static final String ARG_PARAM2 = "userId";
-    private String userId;
-    private static final String ARG_PARAM3 = "myTobaccoId";
+//    private static final String ARG_PARAM1 = "ipAddress";
+//    private String ipAddress;
+//    private static final String ARG_PARAM2 = "userId";
+//    private String userId;
+//    private static final String ARG_PARAM3 = "myTobaccoId";
+    private static final String ARG_PARAM = "myTobaccoId";
     private int mTobaccoId;
 
     // 총 담배 금액 계산
@@ -47,19 +48,18 @@ public class CoachFragment extends Fragment {
 
     @BindView(R.id.total_money_you_smoked) TextView mTextTotalMoneyYouSmoked;
 
-    private AppSettingUtils mAppSettingUtils;
-    private NetworkService mNetworkService;
-
     private OnFragmentInteractionListener mListener;
 
     public CoachFragment() { }
 
-    public static CoachFragment newInstance(String param1, String param2, int param3) {
+//    public static CoachFragment newInstance(String param1, String param2, int param3) {
+    public static CoachFragment newInstance(int param) {
         CoachFragment fragment = new CoachFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        args.putInt(ARG_PARAM3, param3);
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
+//        args.putInt(ARG_PARAM3, param3);
+        args.putInt(ARG_PARAM, param);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,10 +68,11 @@ public class CoachFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            ipAddress = getArguments().getString(ARG_PARAM1);
-            userId = getArguments().getString(ARG_PARAM2);
+//            ipAddress = getArguments().getString(ARG_PARAM1);
+//            userId = getArguments().getString(ARG_PARAM2);
             // 1. tobaccoId 받아오기
-            mTobaccoId = getArguments().getInt(ARG_PARAM3);
+//            mTobaccoId = getArguments().getInt(ARG_PARAM3);
+            mTobaccoId = getArguments().getInt(ARG_PARAM);
         }
         mTobaccoDaoService = TobaccoDaoService.getInstance(getActivity());
 

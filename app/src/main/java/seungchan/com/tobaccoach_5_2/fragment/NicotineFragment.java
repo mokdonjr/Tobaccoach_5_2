@@ -6,34 +6,47 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import seungchan.com.tobaccoach_5_2.R;
 import seungchan.com.tobaccoach_5_2.ble.BluetoothLeService;
+import seungchan.com.tobaccoach_5_2.dao.TobaccoDaoService;
+import seungchan.com.tobaccoach_5_2.model.Tobacco;
 
 /* 재혁이 니코틴 프로그래스 */
 public class NicotineFragment extends Fragment {
     private static String TAG = "NicotineFragment";
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM1 = "tobaccoId";
 
-    private String mParam1;
-    private String mParam2;
+    private int mTobaccoId;
 
     private OnFragmentInteractionListener mListener;
 
+    // 담배 니코틴 계산
+    private Tobacco mTobacco = null;
+    private TobaccoDaoService mTobaccoDaoService;
+    // 정욱
+    private int gage = 0;
+    Handler handler = new Handler();
+
+    @BindView(R.id.progressbar_nicotine_in_fragment)
+    ProgressBar mProgressbarNicotineInFragment;
+
     public NicotineFragment() { }
 
-    public static NicotineFragment newInstance(String param1, String param2) {
+    public static NicotineFragment newInstance(int tobaccoId) {
         NicotineFragment fragment = new NicotineFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_PARAM1, tobaccoId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,17 +67,24 @@ public class NicotineFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mTobaccoId = getArguments().getInt(ARG_PARAM1);
         }
+        mTobaccoDaoService = TobaccoDaoService.getInstance(getActivity());
+        // 담배 정보 꺼내옴
+        mTobacco = mTobaccoDaoService.selectTobaccoById(mTobaccoId);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View nicotineFragmentView =  inflater.inflate(R.layout.fragment_nicotine, container, false);
+        ButterKnife.bind(this, nicotineFragmentView);
         /*
             nicotineProgress
          */
+        // 3. tobaccoPrice * allRowNum 계산해 출력
+        displayNicotineProgress(mTobacco);
+
 
         return nicotineFragmentView;
     }
@@ -118,8 +138,46 @@ public class NicotineFragment extends Fragment {
                 /*
                     displayNicotine 프로그래스
                  */
-
+                displayNicotineProgress(mTobacco);
             }
+        }
+    };
+
+    public void displayNicotineProgress(Tobacco tobacco){
+
+        gage = gage + 5;
+        mProgressbarNicotineInFragment.setProgress(gage);
+
+        // 호출시 감소 상태 시작
+        handler.post(initRunnable);
+
+    }
+
+    //init animation
+    Runnable initRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (gage <= 50) {
+                gage++;
+                mProgressbarNicotineInFragment.setProgress(gage);
+                handler.postDelayed(initRunnable, 40);
+            } else {
+                handler.removeCallbacks(this);
+                handler.post(decreaseRunnable);
+            }
+        }
+    };
+
+    //감소 상태 정의
+    Runnable decreaseRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (gage >= 0) {
+                gage = gage - 1;
+                mProgressbarNicotineInFragment.setProgress(gage);
+            }
+            // 0.6 초 후 재호출
+            handler.postDelayed(decreaseRunnable, 100000);
         }
     };
 }

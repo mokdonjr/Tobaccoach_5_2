@@ -36,12 +36,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import seungchan.com.tobaccoach_5_2.R;
-import seungchan.com.tobaccoach_5_2.dao.TobaccoDBHelper;
 import seungchan.com.tobaccoach_5_2.ble.BluetoothLeService;
 import seungchan.com.tobaccoach_5_2.dao.TobaccoDaoService;
 import seungchan.com.tobaccoach_5_2.graph.MyValueFormatter;
 import seungchan.com.tobaccoach_5_2.utils.AppSettingUtils;
-import seungchan.com.tobaccoach_5_2.utils.ServerMock;
 import seungchan.com.tobaccoach_5_2.webService.ApplicationController;
 import seungchan.com.tobaccoach_5_2.webService.NetworkService;
 
@@ -64,8 +62,8 @@ public class DailyChartFragment extends Fragment {
     @BindView(R.id.text_you_can_see_timely_chart) TextView mTextYouCanSeeTimelyChart; // text_you_can_see_timely_chart
 
     // 서버 Mock --> 추후 바꾸기 네트워크로
-    private List<Integer> mServerMockAllUserAverageByDate;
-    private ServerMock mServerMock;
+//    private List<Integer> mServerMockAllUserAverageByDate;
+//    private ServerMock mServerMock;
     // 네트워크로
     private AppSettingUtils mAppSettingUtils;
     private NetworkService mNetworkService;

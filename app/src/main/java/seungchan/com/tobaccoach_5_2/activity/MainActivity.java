@@ -49,6 +49,7 @@ import seungchan.com.tobaccoach_5_2.dao.TobaccoDaoService;
 import seungchan.com.tobaccoach_5_2.fragment.CoachFragment;
 import seungchan.com.tobaccoach_5_2.fragment.DailyChartFragment;
 import seungchan.com.tobaccoach_5_2.fragment.DeviceSettingFragment;
+import seungchan.com.tobaccoach_5_2.fragment.NicotineFragment;
 import seungchan.com.tobaccoach_5_2.fragment.RankingFragment;
 import seungchan.com.tobaccoach_5_2.fragment.TimelyChartFragment;
 import seungchan.com.tobaccoach_5_2.fragment.TimerFragment;
@@ -65,7 +66,8 @@ import seungchan.com.tobaccoach_5_2.webService.NetworkService;
 
 public class MainActivity extends AppCompatActivity implements
         TobaccoFragment.OnFragmentInteractionListener , DailyChartFragment.OnFragmentInteractionListener , TimelyChartFragment.OnFragmentInteractionListener
-        , RankingFragment.OnFragmentInteractionListener, DeviceSettingFragment.OnFragmentInteractionListener, CoachFragment.OnFragmentInteractionListener, TimerFragment.OnFragmentInteractionListener {
+        , RankingFragment.OnFragmentInteractionListener, DeviceSettingFragment.OnFragmentInteractionListener, CoachFragment.OnFragmentInteractionListener
+        , TimerFragment.OnFragmentInteractionListener, NicotineFragment.OnFragmentInteractionListener {
     private static String TAG = "MainActivity";
 
     // intent data from MyDeviceScanActivity

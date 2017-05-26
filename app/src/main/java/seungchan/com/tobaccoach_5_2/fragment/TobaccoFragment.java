@@ -242,9 +242,18 @@ public class TobaccoFragment extends Fragment {
                     // 2. tobaccoId 받으면 CoachFragment를 실행하며 전달
                     Fragment selectedFragment = null;
                     FragmentTransaction coachFragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    selectedFragment = CoachFragment.newInstance(ipAddress, username, tobaccoId);
+//                    selectedFragment = CoachFragment.newInstance(ipAddress, userId, tobaccoId);
+                    selectedFragment = CoachFragment.newInstance(tobaccoId);
                     coachFragmentTransaction.replace(R.id.content_coach_fragment, selectedFragment);
                     coachFragmentTransaction.commit();
+
+                    // 3. tobaccoId 받으면 NicotineFragment를 실행하며 전달
+                    selectedFragment = null;
+                    FragmentTransaction nicotineFragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    selectedFragment = NicotineFragment.newInstance(tobaccoId);
+                    nicotineFragmentTransaction.replace(R.id.content_nicotine_fragment, selectedFragment);
+                    nicotineFragmentTransaction.commit();
+
                 } else {
                     int statusCode= response.code();
                     Log.i(TAG, "응답코드 : " + statusCode);

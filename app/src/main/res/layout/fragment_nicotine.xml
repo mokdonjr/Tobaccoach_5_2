@@ -4,10 +4,23 @@
     android:layout_height="match_parent"
     >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progressbar_nicotine_in_fragment"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="100dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:max="100"
+            android:progressDrawable="@drawable/progressbar_nicotine"
+            tools:layout_editor_absoluteX="117dp"
+            tools:layout_editor_absoluteY="64dp" />
+
+    </RelativeLayout>
 
 </FrameLayout>
