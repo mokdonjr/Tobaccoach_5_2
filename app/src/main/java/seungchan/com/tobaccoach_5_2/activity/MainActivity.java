@@ -1,6 +1,5 @@
 package seungchan.com.tobaccoach_5_2.activity;
 
-import android.annotation.TargetApi;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.content.BroadcastReceiver;
@@ -10,7 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
@@ -22,7 +20,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
@@ -44,8 +41,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import seungchan.com.tobaccoach_5_2.R;
 import seungchan.com.tobaccoach_5_2.ble.BluetoothLeService;
-import seungchan.com.tobaccoach_5_2.dao.TobaccoDBHelper;
+import seungchan.com.tobaccoach_5_2.ble.TobaccoachGattAttributes;
 import seungchan.com.tobaccoach_5_2.dao.TobaccoDaoService;
+import seungchan.com.tobaccoach_5_2.fragment.CalendarFragment;
 import seungchan.com.tobaccoach_5_2.fragment.CoachFragment;
 import seungchan.com.tobaccoach_5_2.fragment.DailyChartFragment;
 import seungchan.com.tobaccoach_5_2.fragment.DeviceSettingFragment;
@@ -54,9 +52,7 @@ import seungchan.com.tobaccoach_5_2.fragment.RankingFragment;
 import seungchan.com.tobaccoach_5_2.fragment.TimelyChartFragment;
 import seungchan.com.tobaccoach_5_2.fragment.TimerFragment;
 import seungchan.com.tobaccoach_5_2.fragment.TobaccoFragment;
-import seungchan.com.tobaccoach_5_2.ble.TobaccoachGattAttributes;
 import seungchan.com.tobaccoach_5_2.model.Record;
-import seungchan.com.tobaccoach_5_2.model.ResultObject;
 import seungchan.com.tobaccoach_5_2.model.Tobacco;
 import seungchan.com.tobaccoach_5_2.model.User;
 import seungchan.com.tobaccoach_5_2.utils.AppSettingUtils;
@@ -67,7 +63,7 @@ import seungchan.com.tobaccoach_5_2.webService.NetworkService;
 public class MainActivity extends AppCompatActivity implements
         TobaccoFragment.OnFragmentInteractionListener , DailyChartFragment.OnFragmentInteractionListener , TimelyChartFragment.OnFragmentInteractionListener
         , RankingFragment.OnFragmentInteractionListener, DeviceSettingFragment.OnFragmentInteractionListener, CoachFragment.OnFragmentInteractionListener
-        , TimerFragment.OnFragmentInteractionListener, NicotineFragment.OnFragmentInteractionListener {
+        , TimerFragment.OnFragmentInteractionListener, NicotineFragment.OnFragmentInteractionListener, CalendarFragment.OnFragmentInteractionListener {
     private static String TAG = "MainActivity";
 
     // intent data from MyDeviceScanActivity
@@ -106,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements
     @BindView(R.id.fab_kakao) FloatingActionButton fabKakao;
     @BindView(R.id.fab_time_sync) FloatingActionButton fabTimeSync;
     @BindView(R.id.fab_device_setting) FloatingActionButton fabDeviceSetting;
+    @BindView(R.id.fab_calendar) FloatingActionButton fabCalendar;
 
     private Animation fab_open, fab_close, rotate_forward, rotate_backward;
     boolean isFabOpened = false; // fab 플로팅 버튼 상태
@@ -180,8 +177,8 @@ public class MainActivity extends AppCompatActivity implements
                     selectedFragment = RankingFragment.newInstance(mIpAddress); // 인수 전달
                     rankingFragmentTransaction.replace(R.id.content, selectedFragment, RankingFragment.ARG_PARAM1);
                     rankingFragmentTransaction.commit();
-
                     return true;
+
             }
             return false;
         }
@@ -221,6 +218,7 @@ public class MainActivity extends AppCompatActivity implements
         mActionBar.setTitle(R.string.title_my_tobacco);
         FragmentTransaction firstFragmentTransaction = getSupportFragmentManager().beginTransaction();
         firstFragmentTransaction.replace(R.id.content, TobaccoFragment.newInstance(mIpAddress, userId));
+//        firstFragmentTransaction.replace(R.id.content, CalendarFragment.newInstance(mIpAddress,userId));
         firstFragmentTransaction.commit();
 
         /* Kakao Service */
@@ -293,6 +291,13 @@ public class MainActivity extends AppCompatActivity implements
         deviceSettingFragmentTransaction.commit();
     }
 
+    @OnClick(R.id.fab_calendar) void onClickFabCalendarFloatingButton(){
+        mActionBar.setTitle(R.string.title_calendar);
+        FragmentTransaction firstFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        firstFragmentTransaction.replace(R.id.content, CalendarFragment.newInstance(mIpAddress,userId));
+        firstFragmentTransaction.commit();
+    }
+
     public void animateFabOpening() {
 
         if (isFabOpened) {
@@ -301,10 +306,12 @@ public class MainActivity extends AppCompatActivity implements
             fabKakao.startAnimation(fab_close);
             fabTimeSync.startAnimation(fab_close);
             fabDeviceSetting.startAnimation(fab_close);
+            fabCalendar.startAnimation(fab_close);
 
             fabKakao.setClickable(false);
             fabTimeSync.setClickable(false);
             fabDeviceSetting.setClickable(false);
+            fabCalendar.setClickable(false);
             isFabOpened = false;
             Log.d(TAG, "플로팅바 close");
 
@@ -314,10 +321,12 @@ public class MainActivity extends AppCompatActivity implements
             fabKakao.startAnimation(fab_open);
             fabTimeSync.startAnimation(fab_open);
             fabDeviceSetting.startAnimation(fab_open);
+            fabCalendar.startAnimation(fab_open);
 
             fabKakao.setClickable(true);
             fabTimeSync.setClickable(true);
             fabDeviceSetting.setClickable(true);
+            fabCalendar.setClickable(true);
             isFabOpened = true;
             Log.d(TAG, "플로팅바 open");
         }
