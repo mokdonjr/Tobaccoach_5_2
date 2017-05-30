@@ -1,6 +1,5 @@
 package seungchan.com.tobaccoach_5_2.activity;
 
-import android.annotation.TargetApi;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.content.BroadcastReceiver;
@@ -10,7 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
@@ -22,7 +20,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
@@ -44,8 +41,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import seungchan.com.tobaccoach_5_2.R;
 import seungchan.com.tobaccoach_5_2.ble.BluetoothLeService;
-import seungchan.com.tobaccoach_5_2.dao.TobaccoDBHelper;
+import seungchan.com.tobaccoach_5_2.ble.TobaccoachGattAttributes;
 import seungchan.com.tobaccoach_5_2.dao.TobaccoDaoService;
+import seungchan.com.tobaccoach_5_2.fragment.CalendarFragment;
 import seungchan.com.tobaccoach_5_2.fragment.CoachFragment;
 import seungchan.com.tobaccoach_5_2.fragment.DailyChartFragment;
 import seungchan.com.tobaccoach_5_2.fragment.DeviceSettingFragment;
@@ -54,9 +52,7 @@ import seungchan.com.tobaccoach_5_2.fragment.RankingFragment;
 import seungchan.com.tobaccoach_5_2.fragment.TimelyChartFragment;
 import seungchan.com.tobaccoach_5_2.fragment.TimerFragment;
 import seungchan.com.tobaccoach_5_2.fragment.TobaccoFragment;
-import seungchan.com.tobaccoach_5_2.ble.TobaccoachGattAttributes;
 import seungchan.com.tobaccoach_5_2.model.Record;
-import seungchan.com.tobaccoach_5_2.model.ResultObject;
 import seungchan.com.tobaccoach_5_2.model.Tobacco;
 import seungchan.com.tobaccoach_5_2.model.User;
 import seungchan.com.tobaccoach_5_2.utils.AppSettingUtils;
@@ -67,7 +63,7 @@ import seungchan.com.tobaccoach_5_2.webService.NetworkService;
 public class MainActivity extends AppCompatActivity implements
         TobaccoFragment.OnFragmentInteractionListener , DailyChartFragment.OnFragmentInteractionListener , TimelyChartFragment.OnFragmentInteractionListener
         , RankingFragment.OnFragmentInteractionListener, DeviceSettingFragment.OnFragmentInteractionListener, CoachFragment.OnFragmentInteractionListener
-        , TimerFragment.OnFragmentInteractionListener, NicotineFragment.OnFragmentInteractionListener {
+        , TimerFragment.OnFragmentInteractionListener, NicotineFragment.OnFragmentInteractionListener, CalendarFragment.OnFragmentInteractionListener {
     private static String TAG = "MainActivity";
 
     // intent data from MyDeviceScanActivity
@@ -220,7 +216,8 @@ public class MainActivity extends AppCompatActivity implements
         mActionBar = getSupportActionBar();
         mActionBar.setTitle(R.string.title_my_tobacco);
         FragmentTransaction firstFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        firstFragmentTransaction.replace(R.id.content, TobaccoFragment.newInstance(mIpAddress, userId));
+        //firstFragmentTransaction.replace(R.id.content, TobaccoFragment.newInstance(mIpAddress, userId));
+        firstFragmentTransaction.replace(R.id.content, CalendarFragment.newInstance(mIpAddress,userId));
         firstFragmentTransaction.commit();
 
         /* Kakao Service */

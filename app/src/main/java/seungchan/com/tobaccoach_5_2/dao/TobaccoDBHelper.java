@@ -309,12 +309,14 @@ public class TobaccoDBHelper extends SQLiteOpenHelper {
         Log.d(TAG, "getAmountByDay 메서드");
         int finalAmountByDay = 0;
         String sql = "select " + DBUtils.LOG_COL_DATETIME + " from " + DBUtils.LOG_TABLE_NAME + " where " + DBUtils.LOG_COL_DATETIME  + " like '%" + date + "%';";
+        Log.d("RRRR", sql);
         Cursor results = db.rawQuery(sql, null);
 
         if(results.moveToFirst()){
             int col = 0;
             finalAmountByDay = results.getCount();
         }
+        results.close();
         return finalAmountByDay;
     }
 

@@ -61,6 +61,7 @@ public class TobaccoDaoService {
         mDistinctDateTimeLogDataList = mTobaccoDBHelper.selectDistinctDateTimeLogData(); // 1. selectDistinctDateTimeLogData()로 서비스 이용한 날짜들을 얻는다(time은 없이)
         for(int i=0; i<mDistinctDateTimeLogDataList.size(); i++){
             finalAverageLogAmount += mTobaccoDBHelper.getAmountByDay(mDistinctDateTimeLogDataList.get(i)); // 2. 이용한 날짜들에 대한 로그 데이터 개수들을 getAmountByDay(date)로 얻는다.
+            //Log.i("RRRRRR", mDistinctDateTimeLogDataList.get(i));
         }
 
         int allPeriod = mTobaccoDBHelper.getAllPeriod();

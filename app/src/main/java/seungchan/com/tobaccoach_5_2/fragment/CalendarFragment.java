@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.stacktips.view.CalendarListener;
 import com.stacktips.view.CustomCalendarView;
@@ -110,8 +111,12 @@ public class CalendarFragment extends Fragment {
             @Override
             public void onDateSelected(Date date) {
                 //if (!CalendarUtils.isPastDay(date)) {
-                //    SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                //    selectedDateTv.setText("Selected date is " + df.format(date));
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                //(df.format(date), Toast.LENGTH_SHORT);
+                Toast.makeText(getContext(), df.format(date) + " dayAmount : " + tobaccoDaoService
+                        .getAmountByDay(df.format(date)) + " ||| avarage : " +  tobaccoDaoService
+                        .getAverageLogAmount(), Toast.LENGTH_SHORT)
+                        .show();
                 //} else {
                 //    selectedDateTv.setText("Selected date is disabled!");
                 //}
@@ -137,10 +142,8 @@ public class CalendarFragment extends Fragment {
     private class OveredColorDecorator implements DayDecorator {
         @Override
         public void decorate(DayView dayView) {
-            Calendar c= Calendar.getInstance();
-            c.setTime(dayView.getDate());
 
-            SimpleDateFormat formatter = new SimpleDateFormat( "yyyy.MM.dd HH:mm:ss", Locale.getDefault() );
+            SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd", Locale.getDefault() );
             String dateStr= formatter.format ( dayView.getDate() );
             int todayAmount= tobaccoDaoService.getAmountByDay(dateStr);
             int averageAmount= tobaccoDaoService.getAverageLogAmount();
