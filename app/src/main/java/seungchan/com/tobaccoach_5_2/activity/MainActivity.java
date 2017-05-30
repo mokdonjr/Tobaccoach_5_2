@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements
     @BindView(R.id.fab_kakao) FloatingActionButton fabKakao;
     @BindView(R.id.fab_time_sync) FloatingActionButton fabTimeSync;
     @BindView(R.id.fab_device_setting) FloatingActionButton fabDeviceSetting;
+    @BindView(R.id.fab_calendar) FloatingActionButton fabCalendar;
 
     private Animation fab_open, fab_close, rotate_forward, rotate_backward;
     boolean isFabOpened = false; // fab 플로팅 버튼 상태
@@ -176,8 +177,8 @@ public class MainActivity extends AppCompatActivity implements
                     selectedFragment = RankingFragment.newInstance(mIpAddress); // 인수 전달
                     rankingFragmentTransaction.replace(R.id.content, selectedFragment, RankingFragment.ARG_PARAM1);
                     rankingFragmentTransaction.commit();
-
                     return true;
+
             }
             return false;
         }
@@ -216,8 +217,8 @@ public class MainActivity extends AppCompatActivity implements
         mActionBar = getSupportActionBar();
         mActionBar.setTitle(R.string.title_my_tobacco);
         FragmentTransaction firstFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        //firstFragmentTransaction.replace(R.id.content, TobaccoFragment.newInstance(mIpAddress, userId));
-        firstFragmentTransaction.replace(R.id.content, CalendarFragment.newInstance(mIpAddress,userId));
+        firstFragmentTransaction.replace(R.id.content, TobaccoFragment.newInstance(mIpAddress, userId));
+//        firstFragmentTransaction.replace(R.id.content, CalendarFragment.newInstance(mIpAddress,userId));
         firstFragmentTransaction.commit();
 
         /* Kakao Service */
@@ -290,6 +291,13 @@ public class MainActivity extends AppCompatActivity implements
         deviceSettingFragmentTransaction.commit();
     }
 
+    @OnClick(R.id.fab_calendar) void onClickFabCalendarFloatingButton(){
+        mActionBar.setTitle(R.string.title_calendar);
+        FragmentTransaction firstFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        firstFragmentTransaction.replace(R.id.content, CalendarFragment.newInstance(mIpAddress,userId));
+        firstFragmentTransaction.commit();
+    }
+
     public void animateFabOpening() {
 
         if (isFabOpened) {
@@ -298,10 +306,12 @@ public class MainActivity extends AppCompatActivity implements
             fabKakao.startAnimation(fab_close);
             fabTimeSync.startAnimation(fab_close);
             fabDeviceSetting.startAnimation(fab_close);
+            fabCalendar.startAnimation(fab_close);
 
             fabKakao.setClickable(false);
             fabTimeSync.setClickable(false);
             fabDeviceSetting.setClickable(false);
+            fabCalendar.setClickable(false);
             isFabOpened = false;
             Log.d(TAG, "플로팅바 close");
 
@@ -311,10 +321,12 @@ public class MainActivity extends AppCompatActivity implements
             fabKakao.startAnimation(fab_open);
             fabTimeSync.startAnimation(fab_open);
             fabDeviceSetting.startAnimation(fab_open);
+            fabCalendar.startAnimation(fab_open);
 
             fabKakao.setClickable(true);
             fabTimeSync.setClickable(true);
             fabDeviceSetting.setClickable(true);
+            fabCalendar.setClickable(true);
             isFabOpened = true;
             Log.d(TAG, "플로팅바 open");
         }

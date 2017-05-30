@@ -16,7 +16,8 @@
     <color name="color_fab">#889d9b</color>
     <color name="color_fab_kakao">#aeccc1</color>
     <color name="color_fab_time_sync">#aeccc1</color>
-    <color name="color_device_setting">#aeccc1</color>
+    <color name="color_fab_device_setting">#aeccc1</color>
+    <color name="color_fab_calendar">#aeccc1</color>
 
     <!--Other general colors-->
     <color name="white">#FFFFFF</color>
